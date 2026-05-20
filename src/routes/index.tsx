@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Phone, MessageCircle, ShieldCheck, Flame, Wrench, GraduationCap, Siren, CheckCircle2 } from "lucide-react";
+import { Phone, MessageCircle, ShieldCheck, Flame, Wrench, GraduationCap, Siren, CheckCircle2, Star, Quote } from "lucide-react";
 import heroImg from "@/assets/hero-fire.jpg";
 import extinguishers from "@/assets/extinguishers.jpg";
 
@@ -10,6 +10,37 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Fire extinguishers, alarms, hydrant systems, AMC and safety training. Trusted fire protection since 2010. Serving Vasai-Virar, Mumbai & all of India." },
       { property: "og:title", content: "Powerex Fire Protection System" },
       { property: "og:description", content: "Protecting lives with reliable fire safety solutions. Call +91 91677 52444." },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "Powerex Fire Protection System",
+          image: "",
+          telephone: "+91-91677-52444",
+          email: "info@powerexfire.com",
+          priceRange: "₹₹",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "G/201, Rashmi Garden, Evershine City, Vasai East",
+            addressLocality: "Vasai-Virar City",
+            addressRegion: "Maharashtra",
+            postalCode: "401208",
+            addressCountry: "IN",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: 19.4100445, longitude: 72.8368007 },
+          areaServed: "IN",
+          founder: "Santosh Kumar Yadav",
+          foundingDate: "2010",
+          sameAs: [
+            "https://www.facebook.com/711610248976755",
+            "https://twitter.com/powerexfire",
+          ],
+          taxID: "27ABKPY1137F1ZH",
+        }),
+      },
     ],
   }),
   component: Home,
@@ -22,6 +53,19 @@ const features = [
   { icon: Wrench, title: "Refilling & AMC", desc: "Annual maintenance contracts and on-site refilling services." },
   { icon: GraduationCap, title: "Fire Safety Training", desc: "Basic, advanced, mock drills and corporate training." },
   { icon: CheckCircle2, title: "PPE & Safety Gear", desc: "Helmets, shoes, harnesses, gloves, signage and more." },
+];
+
+const testimonials = [
+  { name: "Rajesh M.", role: "Facility Manager, Mumbai", text: "Powerex handled our entire hydrant project on time and within budget. Their AMC team is genuinely 24/7." },
+  { name: "Priya S.", role: "HR Lead, Vasai", text: "Excellent fire safety training for our staff. The mock drill was thorough and the team was patient with every question." },
+  { name: "Anil K.", role: "Plant Head, Bhiwandi", text: "Refilling and inspection done quickly across 80+ extinguishers. Documentation was clean and audit-ready." },
+];
+
+const faqs = [
+  { q: "Which areas do you serve?", a: "We're based in Vasai East and serve all of Mumbai, Vasai-Virar, Bhiwandi, Thane and projects across India." },
+  { q: "Do you provide AMC for existing equipment?", a: "Yes — we offer annual maintenance contracts for extinguishers, alarm systems, hydrants and sprinklers regardless of where they were purchased." },
+  { q: "How quickly can you respond to an emergency?", a: "Our team is available 24/7. For urgent refills or breakdowns in Mumbai, we typically reach site within hours." },
+  { q: "Can you train our staff?", a: "Absolutely. We run basic and advanced fire safety training, corporate sessions and mock drills tailored to your premises." },
 ];
 
 function Home() {
@@ -125,6 +169,52 @@ function Home() {
               <a href="https://wa.me/919167752444" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-md bg-white/15 px-5 py-3 text-sm font-semibold ring-1 ring-white/30 hover:bg-white/25"><MessageCircle className="h-4 w-4" /> WhatsApp</a>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="mb-10">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Trusted by 100+ clients</p>
+          <h2 className="mt-2 text-3xl font-bold md:text-4xl">What our customers say</h2>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3">
+          {testimonials.map((t) => (
+            <figure key={t.name} className="rounded-xl border border-border bg-card p-6">
+              <Quote className="h-6 w-6 text-primary/40" aria-hidden />
+              <blockquote className="mt-3 text-sm text-foreground">{t.text}</blockquote>
+              <div className="mt-4 flex items-center justify-between">
+                <figcaption>
+                  <p className="text-sm font-semibold">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                </figcaption>
+                <div className="flex" aria-label="5 out of 5 stars">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" aria-hidden />
+                  ))}
+                </div>
+              </div>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="mx-auto max-w-3xl px-4 pb-20">
+        <div className="mb-8 text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">FAQ</p>
+          <h2 className="mt-2 text-3xl font-bold md:text-4xl">Frequently asked questions</h2>
+        </div>
+        <div className="divide-y divide-border rounded-xl border border-border bg-card">
+          {faqs.map((f) => (
+            <details key={f.q} className="group p-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-semibold">
+                {f.q}
+                <span className="text-primary transition group-open:rotate-45" aria-hidden>+</span>
+              </summary>
+              <p className="mt-3 text-sm text-muted-foreground">{f.a}</p>
+            </details>
+          ))}
         </div>
       </section>
     </>
