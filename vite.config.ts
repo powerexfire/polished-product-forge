@@ -11,7 +11,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 const isGitHubPages = process.env.GITHUB_PAGES === "1";
 
 export default defineConfig({
-  cloudflare: isGitHubPages ? false : undefined,
+  ...(isGitHubPages ? { cloudflare: false } : {}),
   tanstackStart: {
     server: { entry: "server" },
     pages: [
