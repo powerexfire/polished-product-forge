@@ -16,7 +16,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2" aria-label="Powerex Fire home">
-          <img src={logo} alt="" width={36} height={36} className="h-9 w-9" />
+          <img src={logo} alt="Powerex Fire Protection System logo" width={44} height={44} className="h-11 w-11 object-contain" />
           <span className="font-bold tracking-tight text-secondary">
             POWEREX <span className="text-primary">FIRE</span>
           </span>
