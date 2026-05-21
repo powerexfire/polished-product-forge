@@ -22,7 +22,6 @@ if (!(await exists(join(clientDir, "index.html")))) {
   throw new Error("GitHub Pages build failed: dist/client/index.html was not generated.");
 }
 
-await copyIfExists(join(clientDir, "404.html"), join(clientDir, "404.html"));
 await copyIfExists(join(clientDir, "404", "index.html"), join(clientDir, "404.html"));
 
 if (!(await exists(join(clientDir, "404.html")))) {
