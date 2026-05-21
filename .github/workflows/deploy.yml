@@ -22,22 +22,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
-        run: npm install   # ✅ FIXED
+        run: npm ci
 
-      - name: Build project
-        run: npm run build
+      - name: Build static GitHub Pages site
+        run: npm run build:github-pages
 
       - name: Debug build output
         run: |
-          echo "Listing dist folder:"
-          ls -R dist || echo "dist not found"
+          test -f dist/client/index.html
+          test -f dist/client/404.html
+          echo "Listing GitHub Pages artifact:"
+          ls -R dist/client
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/client
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
