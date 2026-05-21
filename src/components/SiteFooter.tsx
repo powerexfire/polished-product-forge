@@ -1,14 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Twitter, MessageCircle, Mail, Phone, MapPin } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export function SiteFooter() {
   return (
     <footer className="mt-20 bg-secondary text-secondary-foreground">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-4">
         <div>
-          <h3 className="text-lg font-bold">
-            POWEREX <span className="text-primary">FIRE</span>
-          </h3>
+          <div className="flex items-center gap-3">
+            <img src={logo} alt="Powerex Fire Protection System" width={48} height={48} className="h-12 w-12 object-contain" />
+            <h3 className="text-lg font-bold">
+              POWEREX <span className="text-primary">FIRE</span>
+            </h3>
+          </div>
           <p className="mt-3 text-sm text-secondary-foreground/70">
             Protecting lives with reliable fire safety solutions since 2010.
           </p>
