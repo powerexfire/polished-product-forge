@@ -4,40 +4,55 @@ on:
   push:
     branches:
       - main
+      - master
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20
+          bun-version: latest
 
       - name: Install dependencies
-        run: npm install   # ✅ FIXED
+        run: bun install --frozen-lockfile
 
-      - name: Build project
-        run: npm run build
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build static GitHub Pages site
+        run: bun run build:github-pages
 
       - name: Debug build output
         run: |
-          echo "Listing dist folder:"
-          ls -R dist || echo "dist not found"
+          test -f dist/client/index.html
+          test -f dist/client/404.html
+          echo "Listing GitHub Pages artifact:"
+          ls -R dist/client
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist/client
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
