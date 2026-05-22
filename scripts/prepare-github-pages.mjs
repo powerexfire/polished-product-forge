@@ -47,10 +47,18 @@ const rootCandidates = [
 ];
 let rootIndex = rootCandidates.find((p) => htmlFiles.includes(p));
 if (!rootIndex) {
-  throw new Error(
-    `GitHub Pages build failed: no root HTML file found in ${clientDir}. ` +
-      `Checked: ${rootCandidates.join(", ")}`,
-  );
+  // Fall back to the SPA shell (404.html) or any emitted HTML so we always
+  // produce a root index.html for GitHub Pages.
+  const fallback =
+    htmlFiles.find((p) => p.endsWith("__spa-fallback.html") || p.endsWith("__spa-fallback/index.html")) ||
+    htmlFiles.find((p) => p.endsWith("404.html") || p.endsWith("404/index.html")) ||
+    htmlFiles[0];
+  if (!fallback) {
+    throw new Error(`GitHub Pages build failed: no HTML files found in ${clientDir}.`);
+  }
+  console.warn("No prerendered root index.html; using fallback:", relative(clientDir, fallback));
+  await copyFile(fallback, join(clientDir, "index.html"));
+  rootIndex = join(clientDir, "index.html");
 }
 console.log("Root entry HTML:", relative(clientDir, rootIndex));
 

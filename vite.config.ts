@@ -26,14 +26,9 @@ export default defineConfig({
       autoStaticPathsDiscovery: true,
       failOnError: true,
     },
-    spa: {
-      enabled: true,
-      maskPath: "/",
-      prerender: {
-        outputPath: "/404",
-        crawlLinks: false,
-      },
-    },
+    // SPA fallback is intentionally disabled for GitHub Pages — the
+    // prepare-github-pages script copies index.html to 404.html so GitHub
+    // Pages serves the SPA shell for unknown paths.
     sitemap: {
       enabled: true,
       host: "https://powerexfire.in",
