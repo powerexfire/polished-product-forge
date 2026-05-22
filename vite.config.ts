@@ -28,9 +28,9 @@ export default defineConfig({
     },
     spa: {
       enabled: true,
-      maskPath: "/",
+      maskPath: "/__spa-fallback",
       prerender: {
-        outputPath: "/404",
+        outputPath: "/__spa-fallback",
         crawlLinks: false,
       },
     },
